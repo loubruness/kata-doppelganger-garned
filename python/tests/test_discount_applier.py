@@ -44,10 +44,14 @@ def test_apply_v1_with_mock():
 
     discount_applier.apply_v1(10, doppelgangers)
 
-    assert mock_notifier.notify.call_count == len(doppelgangers)  # Échouera à cause du bug
-    mock_notifier.notify.assert_any_call(doppelgangers[0], "You've got a new discount of 10%")
-    mock_notifier.notify.assert_any_call(doppelgangers[1], "You've got a new discount of 10%")
-    mock_notifier.notify.assert_any_call(doppelgangers[2], "You've got a new discount of 10%")
+    assert (
+        mock_notifier.notify.call_count == len(doppelgangers)
+    ), f"Not all users were notified"
+
+    for user in doppelgangers:
+        mock_notifier.notify.assert_any_call(
+            user, "You've got a new discount of 10%"
+        ), f"Not all users were notified"
 
 
 def test_apply_v2_with_mock():
@@ -63,7 +67,7 @@ def test_apply_v2_with_mock():
 
     discount_applier.apply_v2(10, doppelgangers)
 
-    assert mock_notifier.notify.call_count == len(doppelgangers) # Échouera à cause du bug
+    assert mock_notifier.notify.call_count == len(doppelgangers)
     mock_notifier.notify.assert_any_call(doppelgangers[0], "You've got a new discount of 10%")
     mock_notifier.notify.assert_any_call(doppelgangers[1], "You've got a new discount of 10%")
     mock_notifier.notify.assert_any_call(doppelgangers[2], "You've got a new discount of 10%")
