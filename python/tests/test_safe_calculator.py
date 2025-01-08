@@ -5,8 +5,11 @@ from safe_calculator import SafeCalculator
 
 def test_divide_should_not_raise_any_error_when_authorized():
     # TODO: write a test that fails due to the bug in
-    x = SafeCalculator(Authorizer("1456", "admin")).add(1,2)
-    assert x == 1 + 2
+    left = 1
+    right = 2
+    
+    x = SafeCalculator(Authorizer("1456", "admin")).add(left,right)
+    assert x == left + right
 
 
 class Authorizer:
